@@ -1,0 +1,9 @@
+[submodule "java-agent"]
+	path = java-agent
+	url = git://github.com/thobe/java-agent.git
+[submodule "java-tooling"]
+	path = java-tooling
+	url = git://github.com/thobe/java-tooling.git
+[submodule "subprocess-testing"]
+	path = subprocess-testing
+	url = git://github.com/thobe/subprocess-testing.git

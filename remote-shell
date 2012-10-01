@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd $(dirname $0)
+WD=$(pwd)
+mvn clean package
+cd -
+
+jrunscript -J-agentpath:$WD/java-tooling/target/classes/libjavatooling.jnilib -cp $(echo $WD/*/target/*-1.0-SNAPSHOT.jar | tr " " :) -l rmi -Dorg.thobe.script.remote.PID=$1
