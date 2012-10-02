@@ -50,6 +50,10 @@ class Connector extends UnicastRemoteObject implements Callback
             {
                 engine = connect( pid, language );
             }
+            catch ( RuntimeException e )
+            {
+                throw e;
+            }
             catch ( Exception e )
             {
                 throw new ScriptException( e );

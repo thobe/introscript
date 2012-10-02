@@ -85,4 +85,31 @@ public class RemoteScriptEngineTest
         // then
         assertEquals( 42, process.awaitTermination( 5, TimeUnit.SECONDS ) );
     }
+
+    @Test
+    public void shouldHaveIntrospectiveCapabilities() throws Exception
+    {
+        // given
+        Subprocess process = subprocess.starter( LoopingProcess.class ).stdOut( null ).start();
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName( RemoteScriptEngineFactory.NAME );
+        engine.put( RemoteScriptEngineFactory.PID, process.pid() );
+
+        // then
+        shouldHave( engine, "instrumentation" );
+        shouldHave( engine, "unsafe" );
+        shouldHave( engine, "tools" );
+    }
+
+    private void shouldHave( ScriptEngine engine, String varName )
+    {
+        try
+        {
+            engine.eval( varName );
+        }
+        catch ( ScriptException e )
+        {
+            System.err.printf( "Script engine variable [%s] is not available.", varName );
+        }
+    }
 }

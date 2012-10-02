@@ -16,15 +16,26 @@ class LocalScriptEngine extends UnicastRemoteObject implements RemoteEngine
 {
     private final ScriptEngine engine;
 
-    LocalScriptEngine( String name, Instrumentation instrumentation, Unsafe unsafe ) throws RemoteException
+    LocalScriptEngine( String name, Instrumentation instrumentation, Unsafe unsafe, ToolingInterface tools )
+            throws RemoteException
     {
         this.engine = new ScriptEngineManager().getEngineByName( name );
         if ( engine == null )
         {
             throw new IllegalArgumentException( String.format( "No such scrip engine '%s'.", name ) );
         }
-        engine.put( "instrumentation", instrumentation );
-        engine.put( "unsafe", unsafe );
+        if ( instrumentation != null )
+        {
+            engine.put( "instrumentation", instrumentation );
+        }
+        if ( unsafe != null )
+        {
+            engine.put( "unsafe", unsafe );
+        }
+        if ( tools != null )
+        {
+            engine.put( "tools", tools );
+        }
     }
 
     @Override
