@@ -22,7 +22,7 @@ class LocalScriptEngine extends UnicastRemoteObject implements RemoteEngine
         this.engine = new ScriptEngineManager().getEngineByName( name );
         if ( engine == null )
         {
-            throw new IllegalArgumentException( String.format( "No such scrip engine '%s'.", name ) );
+            throw new IllegalArgumentException( String.format( "No such script engine '%s'.", name ) );
         }
         if ( instrumentation != null )
         {
